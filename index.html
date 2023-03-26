@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project Build Your Faith</title>
+    <script>
+      window.onload = function() {
+        var currentDate = new Date();
+        var dateString = currentDate.toLocaleDateString();
+        var timeString = currentDate.toLocaleTimeString();
+        document.getElementById("datetime").innerHTML = dateString + " " + timeString;
+      };
+
+    function displayOutput(virtue) {
+        var verses = {
+            "Love": [
+            "1 Corinthians 13:4-7",
+            "1 John 4:7-8"
+            ],
+            "Peace": [
+            "Philippians 4:6-7",
+            "John 14:27"
+            ],
+            "Patience": [
+            "Romans 12:12",
+            "James 1:4"
+            ],
+            "Joy": [
+            "Philippians 4:4",
+            "Psalm 118:24"
+            ],
+            "Kindness": [
+            "Ephesians 4:32",
+            "Colossians 3:12"
+            ],
+            "Goodness": [
+            "Galatians 6:9",
+            "Ephesians 2:10"
+            ],
+            "Faith": [
+            "Hebrews 11:1",
+            "Ephesians 2:8-9"
+            ],
+            "Self-Control": [
+            "Proverbs 25:28",
+            "1 Corinthians 9:27"
+            ]
+        };
+
+  // get the last selected verse for this virtue from local storage
+        var lastSelectedVerse = localStorage.getItem(virtue);
+  
+  // get all verses for this virtue
+        var allVerses = verses[virtue];
+
+  // remove the last selected verse from the list of all verses
+        var remainingVerses = allVerses.filter(function(verse) {
+            return verse !== lastSelectedVerse;
+        });
+
+  // randomly select a verse from the remaining verses
+        var selectedVerse = remainingVerses[Math.floor(Math.random() * remainingVerses.length)];
+
+  // save the selected verse to local storage
+        localStorage.setItem(virtue, selectedVerse);
+
+  // generate the verse link
+        var verseLink = "https://www.biblegateway.com/passage/?search=" + encodeURIComponent(selectedVerse) + "&version=NIV";
+  
+  // display the output
+        document.getElementById("output").innerHTML = "You selected " + virtue + ", Bring yourself and an open mind to: " + selectedVerse + ". " + "<a href='" + verseLink + "' target='_blank'>Read more</a>";
+    }
+
+
+    </script>
+  </head>
+  <body>
+    <p>The current date and time is: <span id="datetime"></span></p>
+    <p> Thank you for taking the time to Enhance your faith with <i>Project Build Your Faith</i></p>
+    <ul>
+      <li><a href="#" onclick="displayOutput('Love')">Love</a></li>
+      <li><a href="#" onclick="displayOutput('Peace')">Peace</a></li>
+      <li><a href="#" onclick="displayOutput('Patience')">Patience</a></li>
+      <li><a href="#" onclick="displayOutput('Joy')">Joy</a></li>
+      <li><a href="#" onclick="displayOutput('Kindness')">Kindness</a></li>
+      <li><a href="#" onclick="displayOutput('Goodness')">Goodness</a></li>
+      <li><a href="#" onclick="displayOutput('Faith')">Faith</a></li>
+      <li><a href="#" onclick="displayOutput('Self-Control')">Self-Control</a></li>
+    </ul>
+    <form>
+      <label for="textbox">Speak to God (Your responses will not be saved anywhere, sometimes it just helps to say what is on your mind):</label>
+      <input type="text" id="textbox" name="textbox">
+      <br>
+      <br>
+      <div id="output"></div>
+    </form>
+  </body>
+</html>
